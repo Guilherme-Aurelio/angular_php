@@ -1,0 +1,37 @@
+<div>
+  <!-- Formulário para criar nova lista de compras -->
+  <form (ngSubmit)="createShoppingList()">
+    <label for="name">Nome da lista:</label>
+    <input type="text" id="name" name="name" [(ngModel)]="newShoppingList.name" required>
+    <label for="description">Descrição:</label>
+    <input type="text" id="description" name="description" [(ngModel)]="newShoppingList.description" required>
+    <button type="submit">Criar lista de compras</button>
+  </form>
+
+  <!-- Lista de compras existentes -->
+  <ul>
+    <li *ngFor="let shoppingList of shoppingLists">
+      <span>{{ shoppingList.name }}</span>
+      <span>{{ shoppingList.description }}</span>
+      <button (click)="deleteShoppingList(shoppingList.id)">Excluir lista</button>
+
+      <!-- Formulário para adicionar novo item à lista de compras -->
+      <form (ngSubmit)="createItem(shoppingList.id)">
+        <label for="itemName">Nome do item:</label>
+        <input type="text" id="itemName" name="itemName" [(ngModel)]="newItem.name" required>
+        <label for="itemQuantity">Quantidade:</label>
+        <input type="number" id="itemQuantity" name="itemQuantity" [(ngModel)]="newItem.quantity">
+        <button type="submit">Criar item</button>
+      </form>
+
+      <!-- Lista de itens da lista de compras -->
+      <ul>
+        <li *ngFor="let item of shoppingList.items">
+          <span>{{ item.name }} - Quantidade: {{ item.quantity }}</span>
+          <button (click)="markItemAsBought(shoppingList.id, item.id)">Comprado</button>
+          <button (click)="deleteItem(shoppingList.id, item.id)">Excluir item</button>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
