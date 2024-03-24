@@ -1,35 +1,35 @@
-<div>
-  <!-- Formulário para criar nova lista de compras -->
-  <form (ngSubmit)="createShoppingList()">
+<div class="container">
+  <h2>Criar nova lista de compras</h2>
+  <form class="form-group" (ngSubmit)="createShoppingList()">
     <label for="name">Nome da lista:</label>
-    <input type="text" id="name" name="name" [(ngModel)]="newShoppingList.name" required>
+    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newShoppingList.name" required>
     <label for="description">Descrição:</label>
-    <input type="text" id="description" name="description" [(ngModel)]="newShoppingList.description" required>
-    <button type="submit">Criar lista de compras</button>
+    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="newShoppingList.description" required>
+    <button type="submit" class="btn btn-primary">Criar lista de compras</button>
   </form>
 
-  <!-- Lista de compras existentes -->
-  <ul>
-    <li *ngFor="let shoppingList of shoppingLists">
+  <h2>Listas de compras</h2>
+  <ul class="list-group">
+    <li *ngFor="let shoppingList of shoppingLists" class="list-group-item">
       <span>{{ shoppingList.name }}</span>
       <span>{{ shoppingList.description }}</span>
-      <button (click)="deleteShoppingList(shoppingList.id)">Excluir lista</button>
+      <button class="btn btn-danger" (click)="deleteShoppingList(shoppingList.id)">Excluir lista</button>
 
-      <!-- Formulário para adicionar novo item à lista de compras -->
-      <form (ngSubmit)="createItem(shoppingList.id)">
+      <h3>Adicionar item à lista: {{ shoppingList.name }}</h3>
+      <form class="form-group" (ngSubmit)="createItem(shoppingList.id)">
         <label for="itemName">Nome do item:</label>
-        <input type="text" id="itemName" name="itemName" [(ngModel)]="newItem.name" required>
+        <input type="text" class="form-control" id="itemName" name="itemName" [(ngModel)]="newItem.name" required>
         <label for="itemQuantity">Quantidade:</label>
-        <input type="number" id="itemQuantity" name="itemQuantity" [(ngModel)]="newItem.quantity">
-        <button type="submit">Criar item</button>
+        <input type="number" class="form-control" id="itemQuantity" name="itemQuantity" [(ngModel)]="newItem.quantity">
+        <button type="submit" class="btn btn-success">Criar item</button>
       </form>
 
-      <!-- Lista de itens da lista de compras -->
-      <ul>
-        <li *ngFor="let item of shoppingList.items">
+      <h4>Itens da lista: {{ shoppingList.name }}</h4>
+      <ul class="list-group">
+        <li *ngFor="let item of shoppingList.items" class="list-group-item">
           <span>{{ item.name }} - Quantidade: {{ item.quantity }}</span>
-          <button (click)="markItemAsBought(shoppingList.id, item.id)">Comprado</button>
-          <button (click)="deleteItem(shoppingList.id, item.id)">Excluir item</button>
+          <button class="btn btn-warning" (click)="markItemAsBought(shoppingList.id, item.id)">Comprado</button>
+          <button class="btn btn-danger" (click)="deleteItem(shoppingList.id, item.id)">Excluir item</button>
         </li>
       </ul>
     </li>
