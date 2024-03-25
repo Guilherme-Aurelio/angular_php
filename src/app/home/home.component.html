@@ -1,3 +1,5 @@
+<!-- home.component.html -->
+
 <div class="container">
   <h2>Criar nova lista de compras</h2>
   <form class="form-group" (ngSubmit)="createShoppingList()">
@@ -15,23 +17,8 @@
       <span>{{ shoppingList.description }}</span>
       <button class="btn btn-danger" (click)="deleteShoppingList(shoppingList.id)">Excluir lista</button>
 
-      <h3>Adicionar item à lista: {{ shoppingList.name }}</h3>
-      <form class="form-group" (ngSubmit)="createItem(shoppingList.id)">
-        <label for="itemName">Nome do item:</label>
-        <input type="text" class="form-control" id="itemName" name="itemName" [(ngModel)]="newItem.name" required>
-        <label for="itemQuantity">Quantidade:</label>
-        <input type="number" class="form-control" id="itemQuantity" name="itemQuantity" [(ngModel)]="newItem.quantity">
-        <button type="submit" class="btn btn-success">Criar item</button>
-      </form>
-
-      <h4>Itens da lista: {{ shoppingList.name }}</h4>
-      <ul class="list-group">
-        <li *ngFor="let item of shoppingList.items" class="list-group-item">
-          <span>{{ item.name }} - Quantidade: {{ item.quantity }}</span>
-          <button class="btn btn-warning" (click)="markItemAsBought(shoppingList.id, item.id)">Comprado</button>
-          <button class="btn btn-danger" (click)="deleteItem(shoppingList.id, item.id)">Excluir item</button>
-        </li>
-      </ul>
+      <!-- Adicionando link para a página de detalhes da lista -->
+      <a [routerLink]="['/list', shoppingList.id]" class="btn btn-primary">Detalhes</a>
     </li>
   </ul>
 </div>

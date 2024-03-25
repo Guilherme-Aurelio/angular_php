@@ -3,11 +3,13 @@ import { PhpService } from '../php.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemService } from '../item.service';
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -17,7 +19,7 @@ export class HomeComponent {
   items: any[] = [];
   newItem: any = {};
 
-  constructor(private phpService: PhpService, private itemService: ItemService) { }
+  constructor(private phpService: PhpService, private itemService: ItemService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadShoppingLists();
@@ -40,10 +42,12 @@ export class HomeComponent {
 
   createShoppingList() {
     this.phpService.createShoppingList(this.newShoppingList).subscribe(
-      (data) => {
+      (data: any) => {
         console.log('Shopping list created successfully:', data);
         this.loadShoppingLists();
         this.newShoppingList = {};
+        // Redirecionar para a página da lista recém-criada
+        this.router.navigate(['/list', data.id]); // Assumindo que a resposta do servidor contém o ID da lista criada
       },
       (error) => {
         console.log('Error creating shopping list:', error);

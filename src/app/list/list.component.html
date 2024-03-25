@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>Detalhes da Lista: {{ shoppingList?.name }}</h2>
+
+  <!-- Mostrar detalhes da lista -->
+  <div>
+    <p><strong>Nome:</strong> {{ shoppingList?.name }}</p>
+    <p><strong>Descrição:</strong> {{ shoppingList?.description }}</p>
+  </div>
+
+  <!-- Formulário para adicionar novo item à lista -->
+  <h3>Adicionar novo item à lista</h3>
+  <form (ngSubmit)="createItem()">
+    <div class="form-group">
+      <label for="itemName">Nome do item:</label>
+      <input type="text" class="form-control" id="itemName" name="itemName" [(ngModel)]="newItem.name" required>
+    </div>
+    <div class="form-group">
+      <label for="itemQuantity">Quantidade:</label>
+      <input type="number" class="form-control" id="itemQuantity" name="itemQuantity" [(ngModel)]="newItem.quantity">
+    </div>
+    <button type="submit" class="btn btn-success">Criar item</button>
+  </form>
+
+  <!-- Lista de itens da lista de compras -->
+  <h4>Itens da Lista</h4>
+  <ul class="list-group">
+    <li *ngFor="let item of shoppingList.items" class="list-group-item">
+      <span>{{ item.name }} - Quantidade: {{ item.quantity }}</span>
+      <button class="btn btn-warning item-buttons" (click)="markItemAsBought(item.id)">Comprado</button>
+      <button class="btn btn-danger item-buttons" (click)="deleteItem(item.id)">Excluir item</button>
+    </li>
+  </ul>
+
+
+</div>
